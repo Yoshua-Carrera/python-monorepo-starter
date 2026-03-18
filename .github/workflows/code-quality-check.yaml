@@ -20,5 +20,10 @@ jobs:
       - name: format code
         run: uv format
 
-      - name: sync
+      - name: sync app
         run: uv sync
+        working-directory: ./app
+
+      - name: sync core
+        run: uv sync
+        working-directory: ./core
