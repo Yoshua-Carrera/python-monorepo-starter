@@ -1,0 +1,25 @@
+version = 1
+revision = 3
+requires-python = ">=3.12"
+
+[manifest]
+members = [
+    "app",
+    "core",
+]
+
+[[package]]
+name = "app"
+version = "0.1.0"
+source = { virtual = "app" }
+dependencies = [
+    { name = "core" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "core", editable = "core" }]
+
+[[package]]
+name = "core"
+version = "0.1.0"
+source = { editable = "core" }
