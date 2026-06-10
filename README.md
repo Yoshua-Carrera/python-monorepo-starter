@@ -26,6 +26,32 @@ This monorepo requires `uv`. If you haven't installed it yet, run:
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
+### ❄️ Nix Integration
+
+For users who prefer [Nix](https://nixos.org/), this project includes a `flake.nix` that provides a fully reproducible development environment using [uv2nix](https://github.com/pyproject-nix/uv2nix).
+
+#### Using the DevShell
+
+To enter the development environment, run:
+
+```bash
+nix develop
+```
+
+This shell provides:
+- **Pre-configured `uv`**: Environment variables (`UV_PYTHON`, `UV_NO_SYNC`, etc.) are set so `uv` uses the Nix-provided Python interpreter and dependencies.
+- **Python Interpreter**: A specific Python version (e.g., 3.14) managed by Nix.
+- **Dependencies**: All workspace dependencies pre-installed in a virtual environment.
+
+#### How it Works
+
+The flake uses `uv2nix` to:
+1.  **Load the Workspace**: It reads `pyproject.toml` and `uv.lock` to understand the monorepo structure.
+2.  **Generate Overlays**: It creates Nix overlays from your Python dependencies.
+3.  **Create a Virtualenv**: It builds a Python environment containing your dependencies, which is then added to your PATH in the `nix develop` shell.
+
+This ensures that every developer has the exact same environment, regardless of their local system configuration.
+
 ### 🛠️ Creating New Components
 
 Manage your monorepo by adding new libraries and applications using `uv init`.
